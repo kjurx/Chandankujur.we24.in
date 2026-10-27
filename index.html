@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Chandan Kujur - simple information, useful links and updates.">
+<title>Chandan Kujur</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&display=swap">
+<style>
+:root{
+  --bg:#eef2f7;--card:#fbfcfe;--ink:#12161d;--mut:#5a626e;--line:#dbe1e9;--acc:#2563eb;
+  --chip:#e1e8f1;--bar:rgba(244,247,251,.88);--rip:37,99,235;--lead:#1d4ed8;--nbg:#141922;--glow:rgba(37,99,235,.14);
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#0d1117;--card:#161b23;--ink:#eef2f7;--mut:#9aa4b1;--line:#262d38;--acc:#6b9bff;--chip:#212835;--bar:rgba(13,17,23,.86);--rip:120,165,255;--lead:#1e3a8a;--nbg:#1d2431;--glow:rgba(107,155,255,.16)}
+}
+:root[data-theme="dark"]{--bg:#0d1117;--card:#161b23;--ink:#eef2f7;--mut:#9aa4b1;--line:#262d38;--acc:#6b9bff;--chip:#212835;--bar:rgba(13,17,23,.86);--rip:120,165,255;--lead:#1e3a8a;--nbg:#1d2431;--glow:rgba(107,155,255,.16)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
+body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bar);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.wrap{width:100%;max-width:1100px;margin:0 auto;padding:0 20px}
+
+#fx{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:9998}
+
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:100;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:var(--bar);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.logo{width:38px;height:38px;display:grid;place-items:center;border-radius:11px;background:var(--ink);color:var(--bg);font:700 14px "Bricolage Grotesque",system-ui,sans-serif}
+.menu-btn{width:44px;height:44px;display:grid;place-items:center;border:0;background:none;cursor:pointer}
+.bars{position:relative;width:24px;height:16px}
+.bars i{position:absolute;left:0;width:100%;height:2px;border-radius:2px;background:var(--ink);transition:transform .25s,opacity .2s}
+.bars i:nth-child(1){top:0}.bars i:nth-child(2){top:7px}.bars i:nth-child(3){top:14px}
+.menu-btn.open .bars i:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-btn.open .bars i:nth-child(2){opacity:0}
+.menu-btn.open .bars i:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;padding:8px 20px 14px;background:var(--bar);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav.open{display:flex;animation:drop .25s ease}
+nav a{padding:12px 4px;color:var(--mut);font-size:15px;border-radius:10px}
+nav a:active{background:var(--chip);color:var(--ink)}
+@keyframes drop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+
+.hero{padding:34px 0 30px;background:radial-gradient(circle at 88% 8%,var(--glow) 0,transparent 42%)}
+.badge{display:inline-block;padding:6px 13px;border-radius:50px;background:var(--chip);color:var(--mut);font-size:13px;font-weight:600}
+h1,h2,h3{font-family:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif}
+.hero h1{margin-top:16px;font-size:clamp(38px,11vw,78px);line-height:1.04;letter-spacing:-.03em}
+.hero h1 em{font-style:normal;color:var(--mut)}
+.hero p{margin-top:16px;max-width:540px;color:var(--mut);font-size:16.5px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border:1px solid var(--ink);border-radius:13px;background:var(--ink);color:var(--bg);font-size:15px;font-weight:600;cursor:pointer;transition:transform .15s}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn:active{transform:scale(.96)}
+.hint{margin-top:18px;font-size:13px;color:var(--mut)}
+
+.section{padding:30px 0}
+.head{margin-bottom:16px}
+.head h2{font-size:clamp(26px,6vw,36px);letter-spacing:-.02em;line-height:1.15}
+.head p{margin-top:4px;color:var(--mut);font-size:15px}
+
+.grid{display:grid;grid-template-columns:1fr;gap:12px}
+.card{padding:20px;background:var(--card);border:1px solid var(--line);border-radius:18px}
+.card.lead{background:var(--lead);border-color:transparent;color:#fff}
+.card.lead p{color:rgba(255,255,255,.82)}
+.card.lead .icon{background:rgba(255,255,255,.16);color:#fff}
+.icon{width:42px;height:42px;display:grid;place-items:center;margin-bottom:14px;border-radius:12px;background:var(--chip)}
+.icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.card h3{margin-bottom:6px;font-size:19px}
+.card p{color:var(--mut);font-size:14.5px}
+.card .btn{min-height:40px;margin-top:14px;padding:0 18px;border-radius:10px;font-size:14px}
+
+.timeline{list-style:none;margin-left:6px;border-left:2px solid var(--line)}
+.timeline li{position:relative;padding:0 0 18px 20px}
+.timeline li:last-child{padding-bottom:0}
+.timeline li::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--acc)}
+.timeline li:first-child::before{background:var(--acc)}
+.timeline time{font-size:13px;color:var(--mut)}
+.timeline h3{font-size:17px;margin:1px 0 2px}
+.timeline p{font-size:14.5px;color:var(--mut)}
+
+.notice{margin:6px 0;padding:26px 22px;border-radius:22px;background:var(--nbg);color:#fff}
+.notice h2{font-size:clamp(26px,6vw,34px);letter-spacing:-.02em}
+.notice p{margin-top:8px;max-width:560px;color:#b8c0cc;font-size:15px}
+.notice ul{list-style:none;margin-top:14px;display:grid;gap:6px;color:#e6eaf0;font-size:14.5px}
+.notice li::before{content:"";display:inline-block;width:7px;height:7px;margin-right:10px;border-radius:50%;background:#7fa8ff}
+
+.contact{display:flex;flex-direction:column;align-items:flex-start;padding:22px;background:var(--card);border:1px solid var(--line);border-radius:20px}
+.contact p{max-width:520px;color:var(--mut);font-size:15px}
+.contact .btn{margin-top:16px}
+
+footer{margin-top:14px;padding:20px 0;border-top:1px solid var(--line);color:var(--mut);font-size:13px}
+footer .wrap{display:flex;flex-direction:column;gap:4px}
+
+.calm{display:flex;align-items:center;gap:22px;padding:22px;background:var(--card);border:1px solid var(--line);border-radius:20px}
+.calm h2{font-size:clamp(24px,5vw,30px);letter-spacing:-.02em}
+.calm p{margin-top:6px;color:var(--mut);font-size:15px}
+.orb{flex:none;width:72px;height:72px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0,rgba(var(--rip),.35) 35%,rgba(var(--rip),.9) 100%);animation:breathe 8s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(.7);opacity:.7}50%{transform:scale(1.15);opacity:1}}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:10000;max-width:90vw;padding:12px 18px;border-radius:12px;background:var(--ink);color:var(--bg);font-size:14px;opacity:0;transform:translate(-50%,70px);transition:.3s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (min-width:900px){
+  .topbar{height:68px;padding:0 max(20px,calc((100vw - 1060px)/2))}
+  .menu-btn{display:none}
+  nav{display:flex;position:static;flex-direction:row;gap:26px;padding:0;background:none;border:0;-webkit-backdrop-filter:none;backdrop-filter:none;animation:none}
+  nav a{padding:0;font-size:14.5px}
+  nav a:hover{color:var(--ink)}
+  .hero{padding:64px 0 48px}
+  .section{padding:44px 0}
+  .grid{grid-template-columns:repeat(2,1fr);gap:14px}
+  .card{padding:26px}
+  .notice{padding:44px}
+  footer .wrap{flex-direction:row;justify-content:space-between}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}nav.open{animation:none}.orb{animation:none}}
+</style>
+</head>
+<body>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<header class="topbar">
+  <a href="#home" class="logo" aria-label="Chandan Kujur home">CK</a>
+  <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false"><span class="bars"><i></i><i></i><i></i></span></button>
+  <nav id="nav">
+    <a href="#home">Home</a>
+    <a href="#information">Information</a>
+    <a href="#updates">Updates</a>
+    <a href="#find">Find me</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" id="home">
+    <div class="wrap">
+      <span class="badge">Personal information</span>
+      <h1>Just me.<br><em>Nothing more.</em></h1>
+      <p>Welcome! This is a clean, no-fuss place for useful links, short updates and basic information. Everything is easy to read on any phone and free of clutter.</p>
+      <div class="btns">
+        <a href="#information" class="btn">View information</a>
+        <a href="#contact" class="btn ghost">Contact</a>
+      </div>
+      
+      <p class="hint">Tap anywhere on the page to make a ripple.</p>
+    </div>
+  </section>
+
+  <section class="section" id="information">
+    <div class="wrap">
+      <div class="head"><h2>Information</h2><p>What this website is for, in four short points.</p></div>
+      <div class="grid">
+        <article class="card lead">
+          <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 10v6"/><path d="M12 7h.01"/></svg></div>
+          <h3>About this website</h3>
+          <p>This site is a small, simple home for useful information. Pages are short, labels are clear and everything is easy to find, with no long scrolling and no confusing menus.</p>
+        </article>
+        <article class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.07.07l2-2a5 5 0 0 0-7.07-7.07l-1.15 1.15"/><path d="M14 11a5 5 0 0 0-7.07-.07l-2 2A5 5 0 0 0 12 20l1.15-1.15"/></svg></div>
+          <h3>Useful links</h3>
+          <p>Important websites, projects and handy resources will be collected here, so you don’t have to search for them again and again.</p>
+          <button class="btn action-btn" type="button" data-message="Useful links will be added here soon.">View links</button>
+        </article>
+        <article class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg></div>
+          <h3>Updates</h3>
+          <p>New announcements and changes appear here first. Check back any time to see what’s new, or jump straight to the latest updates below.</p>
+        </article>
+        <article class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6"/><path d="M15 9l-6 6"/></svg></div>
+          <h3>Not interested?</h3>
+          <p>No problem. You can simply leave this page. There’s nothing to fill in, nothing to cancel, and no unnecessary information is ever required.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="updates" style="padding-top:6px">
+    <div class="wrap">
+      <div class="head"><h2>Latest updates</h2><p>A quick look at what has changed and what’s next.</p></div>
+      <ul class="timeline">
+        <li><time>October 2026</time><h3>A fresh new look</h3><p>Cleaner layout, easier reading on mobile and a water ripple that responds to every touch.</p></li>
+        <li><time>Coming soon</time><h3>Useful links</h3><p>A short, hand-picked list of websites, projects and resources.</p></li>
+        <li><time>Coming soon</time><h3>Contact details</h3><p>A simple, direct way to get in touch.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="notice">
+      <h2>Keep it simple.</h2>
+      <p>This website doesn’t ask for unnecessary personal information. Read what you need and go whenever you like.</p>
+      
+    </section>
+  </div>
+
+  <section class="section" id="find" style="padding-top:6px">
+    <div class="wrap">
+      <div class="head"><h2>Find me</h2><p>Social media isn’t really my thing. I keep a small YouTube channel and an Instagram account, and that’s about it.</p></div>
+      <div class="btns" style="margin-top:0">
+        <a class="btn" href="https://youtube.com/@kujurplay" target="_blank" rel="noopener noreferrer">YouTube</a>
+        <a class="btn ghost" href="https://instagram.com/k.jurx" target="_blank" rel="noopener noreferrer">Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="calm" style="padding-top:6px">
+    <div class="wrap">
+      <div class="calm">
+        <div class="orb" aria-hidden="true"></div>
+        <div><h2>A little peace</h2><p>Apart from earning a living, all I really want is some peace of mind. If you’re here for the same, take a slow breath along with the circle.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="wrap">
+      <div class="head"><h2>Contact</h2></div>
+      <div class="contact">
+        <p>Have a question or just want to say hello? Contact details will be added here soon. Until then, thank you for visiting!</p>
+        <button class="btn" id="contactBtn" type="button">Contact</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© <span id="year"></span> Chandan Kujur. All rights reserved.</p>
+    
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+"use strict";
+document.addEventListener("DOMContentLoaded", function () {
+  var menuBtn = document.getElementById("menuBtn"),
+      nav = document.getElementById("nav"),
+      toast = document.getElementById("toast"),
+      tTimer;
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  function setMenu(open) {
+    nav.classList.toggle("open", open);
+    menuBtn.classList.toggle("open", open);
+    menuBtn.setAttribute("aria-expanded", open);
+    menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  }
+  menuBtn.addEventListener("click", function () { setMenu(!nav.classList.contains("open")); });
+  nav.addEventListener("click", function (e) { if (e.target.closest("a")) setMenu(false); });
+  document.addEventListener("pointerdown", function (e) {
+    if (nav.classList.contains("open") && !e.target.closest(".topbar")) setMenu(false);
+  });
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(tTimer);
+    tTimer = setTimeout(function () { toast.classList.remove("show"); }, 2400);
+  }
+  document.querySelectorAll(".action-btn").forEach(function (b) {
+    b.addEventListener("click", function () { showToast(b.dataset.message); });
+  });
+  document.getElementById("contactBtn").addEventListener("click", function () {
+    showToast("Contact details will be added soon.");
+  });
+
+  /* ---------- Water ripple ---------- */
+  var cv = document.getElementById("fx"),
+      cx = cv.getContext("2d"),
+      W, H, D, rs = [], raf = 0,
+      reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function size() {
+    W = window.innerWidth; H = window.innerHeight;
+    D = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = Math.floor(W * D); cv.height = Math.floor(H * D);
+    cx.setTransform(D, 0, 0, D, 0, 0);
+  }
+  size();
+  window.addEventListener("resize", size, { passive: true });
+
+  function ripple(x, y) {
+    var rgb = getComputedStyle(document.documentElement).getPropertyValue("--rip").trim() || "37,99,235",
+        m = Math.max(W, H) * 0.8, now = performance.now(),
+        waves = reduce ? [[0, 0.35, 700, 1]] : [[0, 0.9, 1500, 1], [120, 0.66, 1300, 0.75], [240, 0.44, 1100, 0.55]];
+    waves.forEach(function (w) {
+      rs.push({ x: x, y: y, rgb: rgb, t0: now + w[0], R: m * w[1], dur: w[2], a: w[3] });
+    });
+    if (!raf) raf = requestAnimationFrame(frame);
+  }
+
+  function frame(now) {
+    cx.clearRect(0, 0, W, H);
+    rs = rs.filter(function (r) { return now - r.t0 < r.dur; });
+    rs.forEach(function (r) {
+      var t = (now - r.t0) / r.dur;
+      if (t < 0) return;
+      var e = 1 - Math.pow(1 - t, 3),
+          rad = r.R * e,
+          f = Math.pow(1 - t, 1.5) * r.a;
+
+      if (t < 0.4) {
+        var gr = 46 + rad * 0.3,
+            g = cx.createRadialGradient(r.x, r.y, 0, r.x, r.y, gr),
+            ga = 0.32 * (1 - t / 0.4) * r.a;
+        g.addColorStop(0, "rgba(" + r.rgb + "," + ga + ")");
+        g.addColorStop(1, "rgba(" + r.rgb + ",0)");
+        cx.fillStyle = g;
+        cx.beginPath(); cx.arc(r.x, r.y, gr, 0, 6.2832); cx.fill();
+      }
+      if (rad < 1) return;
+
+      cx.beginPath(); cx.arc(r.x, r.y, rad, 0, 6.2832);
+      cx.lineWidth = 1 + 3.5 * (1 - t);
+      cx.strokeStyle = "rgba(" + r.rgb + "," + (f * 0.75) + ")";
+      cx.stroke();
+
+      cx.beginPath(); cx.arc(r.x, r.y, Math.max(rad - 4, 0), 0, 6.2832);
+      cx.lineWidth = 1.5;
+      cx.strokeStyle = "rgba(255,255,255," + (f * 0.9) + ")";
+      cx.stroke();
+
+      cx.beginPath(); cx.arc(r.x, r.y, rad * 0.86, 0, 6.2832);
+      cx.lineWidth = 1.5;
+      cx.strokeStyle = "rgba(" + r.rgb + "," + (f * 0.32) + ")";
+      cx.stroke();
+    });
+    if (rs.length) { raf = requestAnimationFrame(frame); }
+    else { raf = 0; cx.clearRect(0, 0, W, H); }
+  }
+
+  window.addEventListener("pointerdown", function (e) { ripple(e.clientX, e.clientY); }, { passive: true });
+});
+</script>
+</body>
+</html>
